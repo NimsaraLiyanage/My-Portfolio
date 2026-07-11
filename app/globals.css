@@ -91,7 +91,6 @@ a {
     width: min(300px, 60vw) !important;
   }
   #about,
-  #skills,
   #journey,
   #contact {
     padding-left: 24px !important;

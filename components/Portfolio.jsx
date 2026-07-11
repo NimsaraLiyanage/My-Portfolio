@@ -11,7 +11,7 @@ import Hero from "./Hero";
 import GitHubStats from "./GitHubStats";
 import About from "./About";
 import Work from "./Work";
-import Skills from "./Skills";
+import ExtraCurricular from "./ExtraCurricular";
 import Journey from "./Journey";
 import Contact from "./Contact";
 import Footer from "./Footer";
@@ -61,7 +61,7 @@ export default function Portfolio() {
       <About />
       <Journey />
       <Work />
-      <Skills />
+      <ExtraCurricular />
       <Contact />
       <Footer />
     </div>
