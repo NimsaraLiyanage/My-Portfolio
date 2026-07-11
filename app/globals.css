@@ -58,6 +58,14 @@ a {
     transform: rotate(360deg);
   }
 }
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
 
 /* Utility for the mono font */
 .mono {
@@ -98,6 +106,30 @@ a {
 @media (max-width: 560px) {
   .work-card {
     width: 82vw !important;
+  }
+}
+
+/* Editorial hero */
+.hero-giant {
+  font-size: clamp(96px, 21vw, 340px);
+}
+.hero-role {
+  font-size: clamp(34px, 6vw, 96px);
+}
+@media (max-width: 760px) {
+  .hero-name,
+  .hero-tagline,
+  .hero-role,
+  .hero-social,
+  .hero-para {
+    left: 24px !important;
+    right: 24px !important;
+  }
+  .hero-tagline {
+    display: none !important;
+  }
+  .hero-role {
+    text-align: left !important;
   }
 }
 

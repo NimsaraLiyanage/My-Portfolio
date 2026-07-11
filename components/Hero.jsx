@@ -2,65 +2,26 @@
 
 import { useEffect } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { CONTACT } from "@/lib/data";
-import ParticleCanvas from "./ParticleCanvas";
+import { CONTACT, EXPERTISE } from "@/lib/data";
 
 const EASE = [0.16, 1, 0.3, 1];
-
-// letter reveal, mirroring @keyframes letterIn
-const letterVariants = {
-  hidden: { y: "115%", rotate: 7, opacity: 0 },
-  show: { y: "0%", rotate: 0, opacity: 1 },
-};
-
-function AnimatedWord({ text, baseDelay, glow }) {
-  return (
-    <span
-      style={{
-        display: "block",
-        overflow: "hidden",
-        paddingBottom: glow ? ".08em" : ".06em",
-        color: glow ? "var(--ac, #22D3EE)" : undefined,
-        textShadow: glow ? "0 0 60px var(--acg, rgba(34,211,238,.35))" : undefined,
-      }}
-    >
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          variants={letterVariants}
-          initial="hidden"
-          animate="show"
-          transition={{
-            duration: 0.8,
-            ease: EASE,
-            delay: baseDelay + i * 0.05,
-          }}
-          style={{ display: "inline-block" }}
-        >
-          {ch}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
-
-const socials = [
-  { label: "GH", href: CONTACT.github, title: "GitHub" },
-  { label: "IN", href: CONTACT.linkedin, title: "LinkedIn" },
-  { label: "@", href: `mailto:${CONTACT.email}`, title: "Email" },
-];
+const PHOTO = "/images/Nimsara5.png";
 
 export default function Hero() {
-  // pointer-driven 3D tilt for the photo
+  // subtle pointer parallax
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const rotateY = useSpring(useTransform(mx, (v) => v * 14), {
-    stiffness: 120,
-    damping: 18,
+  const photoX = useSpring(useTransform(mx, (v) => v * 18), {
+    stiffness: 90,
+    damping: 20,
   });
-  const rotateX = useSpring(useTransform(my, (v) => v * -10), {
-    stiffness: 120,
-    damping: 18,
+  const photoY = useSpring(useTransform(my, (v) => v * 12), {
+    stiffness: 90,
+    damping: 20,
+  });
+  const wordX = useSpring(useTransform(mx, (v) => v * -26), {
+    stiffness: 90,
+    damping: 20,
   });
 
   useEffect(() => {
@@ -72,6 +33,8 @@ export default function Hero() {
     return () => window.removeEventListener("mousemove", onMove);
   }, [mx, my]);
 
+  const marqueeItems = [...EXPERTISE, ...EXPERTISE];
+
   return (
     <section
       id="hero"
@@ -79,289 +42,343 @@ export default function Hero() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
         overflow: "hidden",
         zIndex: 1,
       }}
     >
-      <ParticleCanvas />
+      {/* soft spotlight behind the subject */}
       <div
-        className="hero-inner two-col-flex"
         style={{
-          position: "relative",
-          maxWidth: 1440,
-          margin: "0 auto",
-          padding: "140px 48px 80px",
-          display: "flex",
-          alignItems: "center",
-          gap: 64,
-          width: "100%",
+          position: "absolute",
+          top: "42%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+          width: "70vw",
+          height: "70vh",
+          background:
+            "radial-gradient(circle, var(--acs, rgba(34,211,238,.12)) 0%, transparent 62%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
+      {/* skills marquee */}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: EASE }}
+        style={{
+          position: "absolute",
+          top: 92,
+          left: 0,
+          right: 0,
+          zIndex: 4,
+          overflow: "hidden",
+          maskImage:
+            "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
+          WebkitMaskImage:
+            "linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent)",
         }}
       >
-        <div style={{ flex: 1.25, minWidth: 0 }}>
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE }}
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 13,
-              letterSpacing: ".28em",
-              color: "var(--ac, #22D3EE)",
-              marginBottom: 28,
-            }}
-          >
-            SOFTWARE ENGINEER · AI / ML
-          </motion.div>
-
-          <h1
-            style={{
-              margin: 0,
-              fontWeight: 700,
-              fontSize: "clamp(56px, 8.2vw, 132px)",
-              lineHeight: 0.95,
-              letterSpacing: "-.02em",
-            }}
-          >
-            <AnimatedWord text="NIMSARA" baseDelay={0.05} />
-            <AnimatedWord text="LIYANAGE" baseDelay={0.45} glow />
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 1 }}
-            style={{
-              maxWidth: 520,
-              margin: "32px 0 0",
-              fontSize: 18,
-              fontWeight: 300,
-              lineHeight: 1.7,
-              color: "#8FA3BF",
-            }}
-          >
-            Turning ideas into impactful solutions through code and innovation.
-            A BSc (Hons) Computer Engineering graduate, now working as an
-            Associate Software Engineer specializing in software engineering,
-            AI, machine learning &amp; deep learning.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: EASE, delay: 1.15 }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 16,
-              marginTop: 40,
-              flexWrap: "wrap",
-            }}
-          >
-            <a
-              href="#work"
-              style={{
-                background: "var(--ac, #22D3EE)",
-                color: "#04121C",
-                fontWeight: 600,
-                fontSize: 15,
-                textDecoration: "none",
-                padding: "15px 32px",
-                borderRadius: 99,
-                boxShadow: "0 0 32px var(--acg, rgba(34,211,238,.35))",
-                transition: "transform .25s ease",
-              }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.transform = "translateY(-2px)")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.transform = "translateY(0)")
-              }
-            >
-              View Work
-            </a>
-            <a
-              href="#contact"
-              style={{
-                border: "1px solid rgba(148,184,255,.25)",
-                color: "#E6EEF9",
-                fontWeight: 500,
-                fontSize: 15,
-                textDecoration: "none",
-                padding: "15px 32px",
-                borderRadius: 99,
-                transition: "border-color .25s ease, color .25s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "var(--ac, #22D3EE)";
-                e.currentTarget.style.color = "var(--ac, #22D3EE)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "rgba(148,184,255,.25)";
-                e.currentTarget.style.color = "#E6EEF9";
-              }}
-            >
-              Contact Me
-            </a>
-            <div style={{ display: "flex", gap: 8, marginLeft: 12 }}>
-              {socials.map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={s.title}
-                  style={{
-                    width: 44,
-                    height: 44,
-                    borderRadius: "50%",
-                    border: "1px solid rgba(148,184,255,.2)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "#8FA3BF",
-                    textDecoration: "none",
-                    fontFamily: "var(--font-mono)",
-                    fontSize: 12,
-                    transition: "color .25s ease, border-color .25s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = "var(--ac, #22D3EE)";
-                    e.currentTarget.style.borderColor = "var(--ac, #22D3EE)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = "#8FA3BF";
-                    e.currentTarget.style.borderColor = "rgba(148,184,255,.2)";
-                  }}
-                >
-                  {s.label}
-                </a>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: EASE, delay: 0.7 }}
-          className="hero-photo"
+        <div
           style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            perspective: 900,
+            display: "inline-flex",
+            width: "max-content",
+            animation: "marquee 32s linear infinite",
           }}
         >
-          <motion.div
-            style={{
-              position: "relative",
-              width: "min(380px, 30vw)",
-              aspectRatio: "1",
-              willChange: "transform",
-              rotateY,
-              rotateX,
-              transformStyle: "preserve-3d",
-            }}
-          >
-            <div
+          {marqueeItems.map((it, i) => (
+            <span
+              key={i}
               style={{
-                position: "absolute",
-                inset: 0,
-                animation: "floaty 7s ease-in-out infinite",
+                display: "inline-flex",
+                alignItems: "center",
+                fontFamily: "var(--font-mono)",
+                fontSize: 12,
+                letterSpacing: ".22em",
+                color: "#8FA3BF",
+                whiteSpace: "nowrap",
               }}
             >
-              <div
-                style={{
-                  position: "absolute",
-                  inset: -2,
-                  borderRadius: "50%",
-                  background:
-                    "conic-gradient(from 0deg, var(--ac, #22D3EE), transparent 30%, transparent 55%, var(--ac, #22D3EE) 85%, var(--ac, #22D3EE))",
-                  animation: "spinSlow 9s linear infinite",
-                }}
-              />
-              <div
-                style={{
-                  position: "absolute",
-                  inset: -40,
-                  borderRadius: "50%",
-                  border: "1px dashed var(--acb, rgba(34,211,238,.25))",
-                  animation: "spinSlow 40s linear infinite",
-                }}
-              />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/images/Nimsara.png"
-                alt="Nimsara Liyanage"
-                onError={(e) => {
-                  e.currentTarget.style.visibility = "hidden";
-                }}
-                style={{
-                  position: "absolute",
-                  inset: 8,
-                  width: "calc(100% - 16px)",
-                  height: "calc(100% - 16px)",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  background: "#0B1626",
-                  boxShadow:
-                    "0 20px 80px rgba(0,0,0,.6), 0 0 60px var(--acg, rgba(34,211,238,.25))",
-                }}
-              />
-            </div>
-          </motion.div>
+              {it.toUpperCase()}
+              <span
+                style={{ color: "var(--ac, #22D3EE)", margin: "0 22px" }}
+              >
+                •
+              </span>
+            </span>
+          ))}
+        </div>
+      </motion.div>
+
+      {/* giant background word */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1,
+          overflow: "hidden",
+          pointerEvents: "none",
+        }}
+      >
+        <motion.h1
+          aria-label="Nimsara Liyanage"
+          className="hero-giant"
+          style={{
+            x: wordX,
+            margin: 0,
+            fontWeight: 700,
+            lineHeight: 0.9,
+            letterSpacing: "-.02em",
+            whiteSpace: "nowrap",
+            color: "var(--ac, #22D3EE)",
+            textShadow: "0 0 80px var(--acg, rgba(34,211,238,.35))",
+            userSelect: "none",
+          }}
+        >
+          <motion.span
+            style={{ display: "inline-block" }}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 0.92, scale: 1 }}
+            transition={{ duration: 1.1, ease: EASE, delay: 0.15 }}
+          >
+            SOFTWARE
+          </motion.span>
+        </motion.h1>
+      </div>
+
+      {/* subject photo */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          height: "min(84vh, 760px)",
+          aspectRatio: "1",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, ease: EASE, delay: 0.25 }}
+          style={{ x: photoX, y: photoY, width: "100%", height: "100%", position: "relative" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={PHOTO}
+            alt="Nimsara Liyanage"
+            draggable={false}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top center",
+              maskImage:
+                "radial-gradient(62% 68% at 50% 44%, #000 52%, transparent 90%)",
+              WebkitMaskImage:
+                "radial-gradient(62% 68% at 50% 44%, #000 52%, transparent 90%)",
+            }}
+          />
+          {/* darken edges into the background + bottom fade */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "radial-gradient(64% 72% at 50% 42%, transparent 44%, #050B16 84%), linear-gradient(180deg, transparent 55%, #050B16 96%)",
+            }}
+          />
         </motion.div>
       </div>
 
+      {/* name — top left */}
       <motion.div
-        initial={{ opacity: 0, y: 28 }}
+        className="hero-name"
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 1.6 }}
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: "50%",
-          transform: "translateX(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 10,
-        }}
+        transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
+        style={{ position: "absolute", top: 140, left: 48, zIndex: 4 }}
       >
-        <span
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 10,
-            letterSpacing: ".3em",
-            color: "#8FA3BF",
-          }}
-        >
-          SCROLL
-        </span>
         <div
           style={{
-            width: 22,
-            height: 36,
-            border: "1px solid rgba(148,184,255,.3)",
-            borderRadius: 12,
-            display: "flex",
-            justifyContent: "center",
-            paddingTop: 7,
+            fontSize: "clamp(24px, 2.6vw, 40px)",
+            fontWeight: 700,
+            letterSpacing: "-.01em",
+            lineHeight: 1.05,
+            color: "#E6EEF9",
           }}
         >
-          <div
-            style={{
-              width: 3,
-              height: 8,
-              borderRadius: 2,
-              background: "var(--ac, #22D3EE)",
-              animation: "scrollDot 1.8s ease-in-out infinite",
-            }}
-          />
+          Nimsara
+          <br />
+          Liyanage
+        </div>
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 12,
+            letterSpacing: ".18em",
+            color: "var(--ac, #22D3EE)",
+            marginTop: 10,
+          }}
+        >
+          Software · AI / ML
         </div>
       </motion.div>
+
+      {/* tagline — top right */}
+      <motion.div
+        className="hero-tagline"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: EASE, delay: 0.4 }}
+        style={{
+          position: "absolute",
+          top: 140,
+          right: 48,
+          zIndex: 4,
+          textAlign: "right",
+          fontSize: "clamp(13px, 1vw, 16px)",
+          fontWeight: 300,
+          lineHeight: 1.6,
+          color: "#AEBFD6",
+        }}
+      >
+        Code that scales.
+        <br />
+        AI that thinks.
+      </motion.div>
+
+      {/* role — bottom right */}
+      <motion.div
+        className="hero-role"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: EASE, delay: 0.5 }}
+        style={{
+          position: "absolute",
+          bottom: 128,
+          right: 48,
+          zIndex: 4,
+          textAlign: "right",
+        }}
+      >
+        <div
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: 12,
+            letterSpacing: ".22em",
+            color: "#8FA3BF",
+            marginBottom: 6,
+          }}
+        >
+          ASSOCIATE
+        </div>
+        <div
+          className="hero-role"
+          style={{
+            fontWeight: 700,
+            letterSpacing: "-.01em",
+            lineHeight: 0.95,
+            color: "#E6EEF9",
+          }}
+        >
+          ENGINEER
+        </div>
+      </motion.div>
+
+      {/* socials — bottom left */}
+      <motion.div
+        className="hero-social"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: EASE, delay: 0.55 }}
+        style={{
+          position: "absolute",
+          bottom: 128,
+          left: 48,
+          zIndex: 4,
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
+          fontFamily: "var(--font-mono)",
+          fontSize: 12,
+          letterSpacing: ".08em",
+        }}
+      >
+        {[
+          { label: "LinkedIn", href: CONTACT.linkedin, tag: "in" },
+          { label: "GitHub", href: CONTACT.github, tag: "GH" },
+        ].map((s) => (
+          <a
+            key={s.tag}
+            href={s.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              color: "#8FA3BF",
+              textDecoration: "none",
+              transition: "color .25s ease",
+            }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.color = "var(--ac, #22D3EE)")
+            }
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#8FA3BF")}
+          >
+            <span
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: 7,
+                border: "1px solid rgba(148,184,255,.25)",
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 10,
+              }}
+            >
+              {s.tag}
+            </span>
+            {s.label}
+          </a>
+        ))}
+      </motion.div>
+
+      {/* intro paragraph — bottom center */}
+      <motion.p
+        className="hero-para"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, ease: EASE, delay: 0.65 }}
+        style={{
+          position: "absolute",
+          bottom: 40,
+          left: 0,
+          right: 0,
+          margin: "0 auto",
+          maxWidth: 760,
+          padding: "0 48px",
+          textAlign: "center",
+          fontSize: "clamp(12px, 1vw, 15px)",
+          fontWeight: 300,
+          lineHeight: 1.7,
+          color: "#8FA3BF",
+          zIndex: 4,
+        }}
+      >
+        Turning ideas into impactful solutions through code and innovation — an
+        Associate Software Engineer specializing in scalable mobile &amp;
+        backend software, Agentic AI, LLMs &amp; RAG.
+      </motion.p>
     </section>
   );
 }
