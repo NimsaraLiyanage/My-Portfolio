@@ -182,29 +182,33 @@ export default function Work() {
   const scrollerRef = useRef(null);
   const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
 
-  // click-and-drag to pan the row with a mouse
+  // click-and-drag to pan the row with a mouse.
+  // NOTE: the pointer is only captured once a real drag starts (>6px) —
+  // capturing on pointerdown would swallow normal clicks on the CODE links.
   const onPointerDown = (e) => {
     const el = scrollerRef.current;
-    if (!el) return;
+    if (!el || e.pointerType !== "mouse") return;
     drag.current = {
       down: true,
       startX: e.clientX,
       startLeft: el.scrollLeft,
       moved: false,
     };
-    el.setPointerCapture?.(e.pointerId);
   };
   const onPointerMove = (e) => {
     const el = scrollerRef.current;
     if (!el || !drag.current.down) return;
     const dx = e.clientX - drag.current.startX;
-    if (Math.abs(dx) > 4) drag.current.moved = true;
-    el.scrollLeft = drag.current.startLeft - dx;
+    if (!drag.current.moved && Math.abs(dx) > 6) {
+      drag.current.moved = true;
+      el.setPointerCapture?.(e.pointerId);
+    }
+    if (drag.current.moved) el.scrollLeft = drag.current.startLeft - dx;
   };
   const endDrag = (e) => {
     const el = scrollerRef.current;
     drag.current.down = false;
-    el?.releasePointerCapture?.(e.pointerId);
+    if (drag.current.moved) el?.releasePointerCapture?.(e.pointerId);
   };
   // block accidental link clicks that happen right after a drag
   const onClickCapture = (e) => {
