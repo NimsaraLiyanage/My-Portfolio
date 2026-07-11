@@ -1,0 +1,98 @@
+:root {
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", sans-serif;
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #050b16;
+  scrollbar-color: #14283e #050b16;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #e6eef9;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+  color: #fff;
+}
+
+/* --- keyframes carried over from the original design --- */
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@keyframes scrollDot {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes spinSlow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Utility for the mono font */
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Responsive collapse of the two-column grids + horizontal work section */
+@media (max-width: 900px) {
+  .two-col {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+  .hero-inner {
+    flex-direction: column !important;
+    text-align: left;
+    padding: 120px 28px 80px !important;
+    gap: 40px !important;
+  }
+  .hero-photo {
+    order: -1;
+  }
+  .hero-photo > div {
+    width: min(300px, 60vw) !important;
+  }
+  #about,
+  #skills,
+  #journey,
+  #contact {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .work-card {
+    width: 86vw !important;
+  }
+}
