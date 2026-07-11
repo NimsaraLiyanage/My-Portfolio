@@ -12,6 +12,7 @@ import GitHubStats from "./GitHubStats";
 import About from "./About";
 import Work from "./Work";
 import ExtraCurricular from "./ExtraCurricular";
+import Leadership from "./Leadership";
 import Journey from "./Journey";
 import Contact from "./Contact";
 import Footer from "./Footer";
@@ -62,6 +63,7 @@ export default function Portfolio() {
       <Journey />
       <Work />
       <ExtraCurricular />
+      <Leadership />
       <Contact />
       <Footer />
     </div>

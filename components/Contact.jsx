@@ -3,9 +3,11 @@
 import { useRef, useState } from "react";
 import { CONTACT } from "@/lib/data";
 import { Reveal, KineticHeading } from "./shared";
+import ContactTerminal from "./ContactTerminal";
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const [termOpen, setTermOpen] = useState(false);
   const timer = useRef(null);
 
   const copyEmail = () => {
@@ -67,7 +69,7 @@ export default function Contact() {
             marginBottom: 28,
           }}
         >
-          06 — GET IN TOUCH
+          07 — GET IN TOUCH
         </Reveal>
         <Reveal
           as="h2"
@@ -138,14 +140,15 @@ export default function Contact() {
           >
             {copied ? "COPIED ✓" : "COPY MAIL"}
           </button>
-          <a
-            href={`mailto:${CONTACT.email}`}
+          <button
+            onClick={() => setTermOpen(true)}
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: 12,
               letterSpacing: ".14em",
               color: "#E6EEF9",
-              textDecoration: "none",
+              cursor: "pointer",
+              background: "transparent",
               border: "1px solid rgba(148,184,255,.3)",
               padding: "12px 22px",
               borderRadius: 99,
@@ -161,7 +164,7 @@ export default function Contact() {
             }}
           >
             SAY HELLO ↗
-          </a>
+          </button>
         </Reveal>
 
         <Reveal
@@ -207,6 +210,8 @@ export default function Contact() {
           </a>
         </Reveal>
       </div>
+
+      <ContactTerminal open={termOpen} onClose={() => setTermOpen(false)} />
     </section>
   );
 }
