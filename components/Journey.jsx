@@ -62,16 +62,43 @@ function TimelineList({ items }) {
           >
             {t.period}
           </div>
-          <h3
+          <div
             style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
               margin: "0 0 10px",
-              fontSize: 24,
-              fontWeight: 600,
-              color: "#fff",
             }}
           >
-            {t.title}
-          </h3>
+            {t.logo && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={t.logo}
+                alt={t.title}
+                draggable={false}
+                style={{
+                  width: 46,
+                  height: 46,
+                  flex: "none",
+                  borderRadius: 12,
+                  objectFit: "cover",
+                  background: "#fff",
+                  padding: 4,
+                  border: "1px solid rgba(148,184,255,.15)",
+                }}
+              />
+            )}
+            <h3
+              style={{
+                margin: 0,
+                fontSize: 24,
+                fontWeight: 600,
+                color: "#fff",
+              }}
+            >
+              {t.title}
+            </h3>
+          </div>
           <p
             style={{
               margin: 0,
