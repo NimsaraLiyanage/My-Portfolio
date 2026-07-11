@@ -8,7 +8,7 @@ export default function About() {
     <section
       id="about"
       data-screen-label="About"
-      style={{ position: "relative", padding: "160px 48px", zIndex: 1 }}
+      style={{ position: "relative", padding: "160px 48px 40px", zIndex: 1 }}
     >
       <KineticHeading
         text="ABOUT — ABOUT"
@@ -76,11 +76,11 @@ export default function About() {
                   color: "#8FA3BF",
                 }}
               >
-                As an Associate Software Engineer, I specialize in building
-                scalable mobile applications and robust backend architectures.
-                My current expertise lies in developing seamless user
-                experiences using Flutter and architecting serverless backend
-                solutions with AWS and Azure.
+                Associate Software Engineer with experience in building
+                scalable mobile applications and backend systems. I specialize
+                in Flutter development and cloud-native architectures using AWS
+                and Azure, delivering reliable, production-ready software with
+                a focus on performance and user experience.
               </p>
               <p
                 style={{
@@ -91,13 +91,11 @@ export default function About() {
                   color: "#8FA3BF",
                 }}
               >
-                While my core focus is on delivering production-ready software,
-                I maintain a strong, active interest in Artificial Intelligence,
-                particularly in Large Language Models (LLMs) and
-                Retrieval-Augmented Generation (RAG). With a solid foundation in
-                engineering principles, I am passionate about bridging the gap
-                between cutting-edge AI technologies and modern software
-                engineering to create impactful, innovative solutions.
+                Alongside software engineering, I actively explore Artificial
+                Intelligence with a particular interest in Agentic AI, LLMs,
+                RAG and Machine Learning pipelines. I enjoy building
+                intelligent, scalable systems that bridge modern AI
+                technologies with robust software engineering practices.
               </p>
               <a
                 href={CONTACT.resumeUrl}

@@ -219,7 +219,7 @@ export default function Work() {
     <section
       id="work"
       data-screen-label="Projects"
-      style={{ position: "relative", padding: "160px 0", zIndex: 1 }}
+      style={{ position: "relative", padding: "80px 0 120px", zIndex: 1 }}
     >
       <KineticHeading
         text="SELECTED WORK — SELECTED WORK"

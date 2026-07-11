@@ -8,7 +8,7 @@ export default function Journey() {
     <section
       id="journey"
       data-screen-label="Journey"
-      style={{ position: "relative", padding: "80px 48px 180px", zIndex: 1 }}
+      style={{ position: "relative", padding: "20px 48px 60px", zIndex: 1 }}
     >
       <div
         style={{
