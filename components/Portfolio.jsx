@@ -8,6 +8,7 @@ import { accentVars } from "@/lib/theme";
 import AmbientOrbs from "./AmbientOrbs";
 import Nav from "./Nav";
 import Hero from "./Hero";
+import GitHubStats from "./GitHubStats";
 import About from "./About";
 import Work from "./Work";
 import Skills from "./Skills";
@@ -56,6 +57,7 @@ export default function Portfolio() {
 
       <Nav />
       <Hero />
+      <GitHubStats />
       <About />
       <Journey />
       <Work />

@@ -109,6 +109,18 @@ a {
   }
 }
 
+/* GitHub stats strip */
+@media (max-width: 860px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    row-gap: 40px;
+    padding: 48px 24px !important;
+  }
+  .stats-grid .stat-cell:nth-child(3) {
+    border-left: none !important;
+  }
+}
+
 /* Editorial hero */
 .hero-giant {
   font-size: clamp(96px, 21vw, 340px);
