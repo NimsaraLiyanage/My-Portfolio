@@ -75,6 +75,7 @@ export default function Nav() {
           ))}
           <a
             href={CONTACT.resumeUrl}
+            download="Nimsara Liyanage CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
             style={{
