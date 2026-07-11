@@ -32,6 +32,51 @@ function GitHubIcon({ size = 16 }) {
   );
 }
 
+function NavArrow({ dir, onClick }) {
+  const isLeft = dir === "left";
+  return (
+    <button
+      type="button"
+      aria-label={isLeft ? "Previous projects" : "Next projects"}
+      onClick={onClick}
+      className="work-nav-btn"
+      style={{
+        position: "absolute",
+        top: "50%",
+        [isLeft ? "left" : "right"]: -56,
+        transform: "translateY(-50%)",
+        zIndex: 5,
+        width: 44,
+        height: 44,
+        borderRadius: 999,
+        display: "grid",
+        placeItems: "center",
+        cursor: "pointer",
+        color: "#CBD8EF",
+        background: "rgba(11,22,38,.72)",
+        border: "1px solid rgba(148,184,255,.18)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        transition: "color .25s ease, border-color .25s ease, background .25s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = "var(--ac, #22D3EE)";
+        e.currentTarget.style.borderColor = "var(--acb, rgba(34,211,238,.4))";
+        e.currentTarget.style.background = "rgba(11,22,38,.92)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = "#CBD8EF";
+        e.currentTarget.style.borderColor = "rgba(148,184,255,.18)";
+        e.currentTarget.style.background = "rgba(11,22,38,.72)";
+      }}
+    >
+      <svg viewBox="0 0 24 24" width={20} height={20} fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
+        {isLeft ? <polyline points="15 18 9 12 15 6" /> : <polyline points="9 18 15 12 9 6" />}
+      </svg>
+    </button>
+  );
+}
+
 function ProjectCard({ p }) {
   const [imgOk, setImgOk] = useState(true);
   return (
@@ -243,6 +288,15 @@ export default function Work() {
     }
   };
 
+  // arrow-button navigation — scroll by roughly one card + gap.
+  const scrollByCards = (dir) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const card = el.querySelector(".work-card");
+    const step = card ? card.getBoundingClientRect().width + 24 : el.clientWidth * 0.8;
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
+  };
+
   return (
     <section
       id="work"
@@ -283,7 +337,7 @@ export default function Work() {
                 marginBottom: 14,
               }}
             >
-              03 — SELECTED WORK
+              04 — SELECTED WORK
             </div>
             <h2
               style={{
@@ -307,27 +361,32 @@ export default function Work() {
           </div>
         </div>
 
-        <div
-          ref={scrollerRef}
-          className="work-scroller"
-          onPointerDown={onPointerDown}
-          onPointerMove={onPointerMove}
-          onPointerUp={endDrag}
-          onPointerCancel={endDrag}
-          onClickCapture={onClickCapture}
-          style={{
-            display: "flex",
-            gap: 24,
-            padding: "6px 0 28px",
-            overflowX: "auto",
-            overflowY: "hidden",
-            scrollSnapType: "x proximity",
-            cursor: "grab",
-          }}
-        >
-          {PROJECTS.map((p) => (
-            <ProjectCard key={p.num} p={p} />
-          ))}
+        <div style={{ position: "relative" }}>
+          <div
+            ref={scrollerRef}
+            className="work-scroller"
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerCancel={endDrag}
+            onClickCapture={onClickCapture}
+            style={{
+              display: "flex",
+              gap: 24,
+              padding: "6px 0 28px",
+              overflowX: "auto",
+              overflowY: "hidden",
+              scrollSnapType: "x proximity",
+              cursor: "grab",
+            }}
+          >
+            {PROJECTS.map((p) => (
+              <ProjectCard key={p.num} p={p} />
+            ))}
+          </div>
+
+          <NavArrow dir="left" onClick={() => scrollByCards(-1)} />
+          <NavArrow dir="right" onClick={() => scrollByCards(1)} />
         </div>
       </div>
     </section>

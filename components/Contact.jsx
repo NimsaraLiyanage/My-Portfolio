@@ -67,7 +67,7 @@ export default function Contact() {
             marginBottom: 28,
           }}
         >
-          05 — GET IN TOUCH
+          06 — GET IN TOUCH
         </Reveal>
         <Reveal
           as="h2"

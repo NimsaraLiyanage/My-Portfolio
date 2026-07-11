@@ -43,7 +43,7 @@ export default function Skills() {
                 marginBottom: 20,
               }}
             >
-              04 — CAPABILITIES
+              05 — CAPABILITIES
             </div>
             <h2
               style={{
