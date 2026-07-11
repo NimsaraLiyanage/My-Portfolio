@@ -18,7 +18,7 @@ const plexMono = IBM_Plex_Mono({
 export const metadata = {
   title: "Nimsara Liyanage — Software Engineer · AI/ML",
   description:
-    "Final-year Computer Engineering undergraduate specializing in software engineering, AI, machine learning & deep learning.",
+    "Computer Engineering graduate and Associate Software Engineer specializing in scalable mobile & backend software, Agentic AI, LLMs, RAG, machine learning & deep learning.",
 };
 
 export const viewport = {

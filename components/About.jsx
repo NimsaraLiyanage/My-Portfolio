@@ -46,7 +46,7 @@ export default function About() {
               display: "grid",
               gridTemplateColumns: "1.4fr 1fr",
               gap: 80,
-              alignItems: "start",
+              alignItems: "center",
             }}
           >
             <Reveal delay={0.1}>
@@ -59,11 +59,11 @@ export default function About() {
                   letterSpacing: "-.01em",
                 }}
               >
-                Building at the intersection of{" "}
-                <span style={{ color: "var(--ac, #22D3EE)" }}>software</span>{" "}
+                Building at the intersection of software,{" "}
+                <span style={{ color: "var(--ac, #22D3EE)" }}>Agentic AI</span>{" "}
                 &amp;{" "}
                 <span style={{ color: "var(--ac, #22D3EE)" }}>
-                  intelligence
+                  data-driven solutions
                 </span>
                 .
               </h2>
@@ -76,10 +76,11 @@ export default function About() {
                   color: "#8FA3BF",
                 }}
               >
-                Computer Engineering undergraduate at the University of Jaffna,
-                pursuing a B.Sc. (Eng) Hons with a passion for building
-                innovative solutions where software development meets artificial
-                intelligence.
+                As an Associate Software Engineer, I specialize in building
+                scalable mobile applications and robust backend architectures.
+                My current expertise lies in developing seamless user
+                experiences using Flutter and architecting serverless backend
+                solutions with AWS and Azure.
               </p>
               <p
                 style={{
@@ -90,9 +91,13 @@ export default function About() {
                   color: "#8FA3BF",
                 }}
               >
-                With over 2 years of experience in web development, I&apos;ve
-                shipped projects across the full stack. My focus: clean,
-                efficient, user-friendly solutions.
+                While my core focus is on delivering production-ready software,
+                I maintain a strong, active interest in Artificial Intelligence,
+                particularly in Large Language Models (LLMs) and
+                Retrieval-Augmented Generation (RAG). With a solid foundation in
+                engineering principles, I am passionate about bridging the gap
+                between cutting-edge AI technologies and modern software
+                engineering to create impactful, innovative solutions.
               </p>
               <a
                 href={CONTACT.resumeUrl}

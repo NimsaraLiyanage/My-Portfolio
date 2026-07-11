@@ -57,9 +57,9 @@ export default function Portfolio() {
       <Nav />
       <Hero />
       <About />
+      <Journey />
       <Work />
       <Skills />
-      <Journey />
       <Contact />
       <Footer />
     </div>

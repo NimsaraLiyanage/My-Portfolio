@@ -29,7 +29,7 @@ export default function Journey() {
                 marginBottom: 20,
               }}
             >
-              04 — TIMELINE
+              02 — TIMELINE
             </div>
             <h2
               style={{

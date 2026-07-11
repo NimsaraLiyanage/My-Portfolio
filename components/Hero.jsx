@@ -142,8 +142,9 @@ export default function Hero() {
             }}
           >
             Turning ideas into impactful solutions through code and innovation.
-            Final-year Computer Engineering undergraduate specializing in
-            software engineering, AI, machine learning &amp; deep learning.
+            A BSc (Hons) Computer Engineering graduate, now working as an
+            Associate Software Engineer specializing in software engineering,
+            AI, machine learning &amp; deep learning.
           </motion.p>
 
           <motion.div

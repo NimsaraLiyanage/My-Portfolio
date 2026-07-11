@@ -241,7 +241,7 @@ export default function Work() {
                   marginBottom: 14,
                 }}
               >
-                02 — SELECTED WORK
+                03 — SELECTED WORK
               </div>
               <h2
                 style={{
