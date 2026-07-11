@@ -1,9 +1,22 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
 import { PROJECTS } from "@/lib/data";
-import { KineticHeading } from "./shared";
+import { Reveal, KineticHeading } from "./shared";
+
+function GitHubIcon({ size = 16 }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.41.36.78 1.06.78 2.14 0 1.55-.01 2.8-.01 3.18 0 .31.21.68.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+    </svg>
+  );
+}
 
 function ProjectCard({ p }) {
   const [imgOk, setImgOk] = useState(true);
@@ -12,75 +25,75 @@ function ProjectCard({ p }) {
       className="work-card"
       style={{
         position: "relative",
-        width: "min(58vw, 840px)",
-        height: "58vh",
-        minHeight: 420,
-        borderRadius: 22,
+        width: "clamp(280px, 30vw, 400px)",
+        height: 480,
+        borderRadius: 20,
         overflow: "hidden",
         border: "1px solid rgba(148,184,255,.12)",
         background: "#0B1626",
         flex: "none",
-        transition: "border-color .3s ease",
+        scrollSnapAlign: "start",
+        display: "flex",
+        flexDirection: "column",
+        transition: "border-color .3s ease, transform .3s ease",
       }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.borderColor = "var(--acb, rgba(34,211,238,.4))")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.style.borderColor = "rgba(148,184,255,.12)")
-      }
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "var(--acb, rgba(34,211,238,.4))";
+        e.currentTarget.style.transform = "translateY(-4px)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "rgba(148,184,255,.12)";
+        e.currentTarget.style.transform = "translateY(0)";
+      }}
     >
-      {imgOk ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={p.img}
-          alt={p.title}
-          onError={() => setImgOk(false)}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            filter: "saturate(.85) brightness(.9)",
-          }}
-        />
-      ) : (
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "radial-gradient(120% 120% at 70% 20%, var(--acs, rgba(34,211,238,.18)), #0B1626 60%)",
-          }}
-        />
-      )}
+      {/* Thumbnail */}
       <div
         style={{
-          position: "absolute",
-          inset: 0,
+          position: "relative",
+          height: 190,
+          flex: "none",
+          overflow: "hidden",
           background:
-            "linear-gradient(180deg, rgba(5,11,22,.15) 0%, rgba(5,11,22,.55) 55%, rgba(5,11,22,.96) 100%)",
+            "radial-gradient(120% 120% at 70% 20%, var(--acs, rgba(34,211,238,.18)), #0B1626 60%)",
+          borderBottom: "1px solid rgba(148,184,255,.1)",
         }}
-      />
+      >
+        {imgOk && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={p.img}
+            alt={p.title}
+            draggable={false}
+            onError={() => setImgOk(false)}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        )}
+      </div>
+
+      {/* Content panel below the image */}
       <div
         style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          padding: "36px 40px",
+          flex: 1,
+          minHeight: 0,
+          padding: "20px 24px 22px",
           display: "flex",
           flexDirection: "column",
-          gap: 14,
+          gap: 10,
         }}
       >
         <div
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 16,
+            gap: 14,
             fontFamily: "var(--font-mono)",
-            fontSize: 12,
+            fontSize: 11,
             letterSpacing: ".2em",
           }}
         >
@@ -90,7 +103,7 @@ function ProjectCard({ p }) {
         <h3
           style={{
             margin: 0,
-            fontSize: "clamp(24px, 2.2vw, 34px)",
+            fontSize: 21,
             fontWeight: 600,
             lineHeight: 1.2,
             letterSpacing: "-.01em",
@@ -102,183 +115,191 @@ function ProjectCard({ p }) {
         <p
           style={{
             margin: 0,
-            maxWidth: 560,
-            fontSize: 15,
+            fontSize: 14,
             fontWeight: 300,
-            lineHeight: 1.65,
-            color: "#AEBFD6",
+            lineHeight: 1.6,
+            color: "#8FA3BF",
+            display: "-webkit-box",
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
           }}
         >
           {p.desc}
         </p>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 16,
-            marginTop: 6,
-          }}
-        >
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-            {p.tech.map((t) => (
-              <span
-                key={t}
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 11,
-                  letterSpacing: ".08em",
-                  color: "var(--acd, #67E8F9)",
-                  background: "var(--acs, rgba(34,211,238,.12))",
-                  border: "1px solid var(--acb, rgba(34,211,238,.25))",
-                  padding: "6px 12px",
-                  borderRadius: 99,
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-          <a
-            href={p.gh}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 12,
-              letterSpacing: ".14em",
-              color: "#E6EEF9",
-              textDecoration: "none",
-              border: "1px solid rgba(148,184,255,.3)",
-              padding: "10px 20px",
-              borderRadius: 99,
-              whiteSpace: "nowrap",
-              transition: "border-color .25s ease, color .25s ease",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = "var(--ac, #22D3EE)";
-              e.currentTarget.style.color = "var(--ac, #22D3EE)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = "rgba(148,184,255,.3)";
-              e.currentTarget.style.color = "#E6EEF9";
-            }}
-          >
-            CODE ↗
-          </a>
+
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 2 }}>
+          {p.tech.map((t) => (
+            <span
+              key={t}
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: 10,
+                letterSpacing: ".08em",
+                color: "var(--acd, #67E8F9)",
+                background: "var(--acs, rgba(34,211,238,.12))",
+                border: "1px solid var(--acb, rgba(34,211,238,.25))",
+                padding: "5px 10px",
+                borderRadius: 99,
+              }}
+            >
+              {t}
+            </span>
+          ))}
         </div>
+
+        <a
+          href={p.gh}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            marginTop: "auto",
+            alignSelf: "flex-start",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 9,
+            fontFamily: "var(--font-mono)",
+            fontSize: 12,
+            letterSpacing: ".12em",
+            color: "#8FA3BF",
+            textDecoration: "none",
+            transition: "color .25s ease",
+          }}
+          onMouseEnter={(e) =>
+            (e.currentTarget.style.color = "var(--ac, #22D3EE)")
+          }
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#8FA3BF")}
+        >
+          <GitHubIcon size={17} />
+          Code ↗
+        </a>
       </div>
     </div>
   );
 }
 
 export default function Work() {
-  const wrapRef = useRef(null);
-  const trackRef = useRef(null);
-  const [maxScroll, setMaxScroll] = useState(0);
-  const [wrapHeight, setWrapHeight] = useState("100vh");
+  const scrollerRef = useRef(null);
+  const drag = useRef({ down: false, startX: 0, startLeft: 0, moved: false });
 
-  const { scrollYProgress } = useScroll({
-    target: wrapRef,
-    offset: ["start start", "end end"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], [0, -maxScroll]);
-
-  useLayoutEffect(() => {
-    const measure = () => {
-      const track = trackRef.current;
-      if (!track) return;
-      const vw = window.innerWidth;
-      const extra = Math.max(0, track.scrollWidth - vw);
-      // distance the track travels horizontally
-      setMaxScroll(Math.max(0, track.scrollWidth - vw + vw * 0.06));
-      // total scroll distance for the pinned section
-      setWrapHeight(extra + window.innerHeight * 1.35 + "px");
+  // click-and-drag to pan the row with a mouse
+  const onPointerDown = (e) => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    drag.current = {
+      down: true,
+      startX: e.clientX,
+      startLeft: el.scrollLeft,
+      moved: false,
     };
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-  }, []);
+    el.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    const el = scrollerRef.current;
+    if (!el || !drag.current.down) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 4) drag.current.moved = true;
+    el.scrollLeft = drag.current.startLeft - dx;
+  };
+  const endDrag = (e) => {
+    const el = scrollerRef.current;
+    drag.current.down = false;
+    el?.releasePointerCapture?.(e.pointerId);
+  };
+  // block accidental link clicks that happen right after a drag
+  const onClickCapture = (e) => {
+    if (drag.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      drag.current.moved = false;
+    }
+  };
 
   return (
-    <section id="work" data-screen-label="Projects" style={{ position: "relative", zIndex: 1 }}>
-      <div ref={wrapRef} style={{ position: "relative", height: wrapHeight }}>
+    <section
+      id="work"
+      data-screen-label="Projects"
+      style={{ position: "relative", padding: "160px 0", zIndex: 1 }}
+    >
+      <KineticHeading
+        text="SELECTED WORK — SELECTED WORK"
+        speed={0.12}
+        style={{ position: "absolute", top: 60, left: 0, fontSize: "16vw" }}
+      />
+      <div
+        className="work-wrap"
+        style={{
+          position: "relative",
+          maxWidth: 1440,
+          margin: "0 auto",
+          padding: "0 48px",
+        }}
+      >
         <div
           style={{
-            position: "sticky",
-            top: 0,
-            height: "100vh",
-            overflow: "hidden",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            marginBottom: 40,
+            flexWrap: "wrap",
+            gap: 16,
           }}
         >
-          <KineticHeading
-            text="SELECTED WORK — SELECTED WORK"
-            speed={0.12}
-            style={{ position: "absolute", top: "6vh", left: 0, fontSize: "17vw" }}
-          />
-          <div
-            style={{
-              display: "flex",
-              alignItems: "baseline",
-              justifyContent: "space-between",
-              padding: "0 6vw",
-              marginBottom: 36,
-              position: "relative",
-              flexWrap: "wrap",
-              gap: 16,
-            }}
-          >
-            <div>
-              <div
-                style={{
-                  fontFamily: "var(--font-mono)",
-                  fontSize: 12,
-                  letterSpacing: ".28em",
-                  color: "var(--ac, #22D3EE)",
-                  marginBottom: 14,
-                }}
-              >
-                03 — SELECTED WORK
-              </div>
-              <h2
-                style={{
-                  margin: 0,
-                  fontSize: "clamp(32px, 3.4vw, 52px)",
-                  fontWeight: 600,
-                  letterSpacing: "-.01em",
-                }}
-              >
-                Featured Projects
-              </h2>
-            </div>
+          <Reveal>
             <div
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: 13,
-                color: "#8FA3BF",
+                fontSize: 12,
+                letterSpacing: ".28em",
+                color: "var(--ac, #22D3EE)",
+                marginBottom: 14,
               }}
             >
-              SCROLL TO EXPLORE →
+              03 — SELECTED WORK
             </div>
-          </div>
-          <motion.div
-            ref={trackRef}
+            <h2
+              style={{
+                margin: 0,
+                fontSize: "clamp(32px, 3.4vw, 52px)",
+                fontWeight: 600,
+                letterSpacing: "-.01em",
+              }}
+            >
+              Featured Projects
+            </h2>
+          </Reveal>
+          <div
             style={{
-              display: "flex",
-              gap: "3.5vw",
-              padding: "0 6vw",
-              width: "max-content",
-              willChange: "transform",
-              x,
+              fontFamily: "var(--font-mono)",
+              fontSize: 12,
+              color: "#8FA3BF",
             }}
           >
-            {PROJECTS.map((p) => (
-              <ProjectCard key={p.num} p={p} />
-            ))}
-          </motion.div>
+            DRAG / SCROLL →
+          </div>
+        </div>
+
+        <div
+          ref={scrollerRef}
+          className="work-scroller"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onClickCapture={onClickCapture}
+          style={{
+            display: "flex",
+            gap: 24,
+            padding: "6px 0 28px",
+            overflowX: "auto",
+            overflowY: "hidden",
+            scrollSnapType: "x proximity",
+            cursor: "grab",
+          }}
+        >
+          {PROJECTS.map((p) => (
+            <ProjectCard key={p.num} p={p} />
+          ))}
         </div>
       </div>
     </section>

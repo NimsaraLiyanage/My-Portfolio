@@ -89,10 +89,36 @@ a {
     padding-left: 24px !important;
     padding-right: 24px !important;
   }
+  .work-wrap {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
 }
 
 @media (max-width: 560px) {
   .work-card {
-    width: 86vw !important;
+    width: 82vw !important;
   }
+}
+
+/* Featured Projects horizontal scroller */
+.work-scroller {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ac, #22d3ee) rgba(148, 184, 255, 0.08);
+  -webkit-overflow-scrolling: touch;
+}
+.work-scroller:active {
+  cursor: grabbing;
+}
+.work-scroller::-webkit-scrollbar {
+  height: 8px;
+}
+.work-scroller::-webkit-scrollbar-track {
+  background: rgba(148, 184, 255, 0.08);
+  border-radius: 99px;
+}
+.work-scroller::-webkit-scrollbar-thumb {
+  background: var(--ac, #22d3ee);
+  border-radius: 99px;
+  box-shadow: 0 0 10px var(--acg, rgba(34, 211, 238, 0.5));
 }
