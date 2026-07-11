@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
+import ContributionGraph from "./ContributionGraph";
 
 const GITHUB_USER = "NimsaraLiyanage";
 const CODING_START_YEAR = 2021; // years-of-coding auto-increments from this
@@ -149,6 +150,7 @@ export default function GitHubStats() {
           </a>
         ))}
       </motion.div>
+      <ContributionGraph />
     </section>
   );
 }
