@@ -118,6 +118,7 @@ export default function Hero() {
           position: "absolute",
           inset: 0,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           zIndex: 1,
@@ -125,6 +126,22 @@ export default function Hero() {
           pointerEvents: "none",
         }}
       >
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.45 }}
+          style={{
+            alignSelf: "flex-end",
+            marginRight: "7vw",
+            marginBottom: 14,
+            fontFamily: "var(--font-mono)",
+            fontSize: "clamp(12px, 1.1vw, 16px)",
+            letterSpacing: ".55em",
+            color: "#E6EEF9",
+          }}
+        >
+          ASSOCIATE
+        </motion.div>
         <motion.h1
           aria-label="Nimsara Liyanage"
           className="hero-giant"
@@ -269,17 +286,6 @@ export default function Hero() {
           textAlign: "right",
         }}
       >
-        <div
-          style={{
-            fontFamily: "var(--font-mono)",
-            fontSize: 12,
-            letterSpacing: ".22em",
-            color: "#8FA3BF",
-            marginBottom: 6,
-          }}
-        >
-          ASSOCIATE
-        </div>
         <div
           className="hero-role"
           style={{
