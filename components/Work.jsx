@@ -127,16 +127,17 @@ function ProjectCard({ p }) {
           {p.title}
         </h3>
         <p
+          className="desc-scroll"
           style={{
             margin: 0,
             fontSize: 14,
             fontWeight: 300,
             lineHeight: 1.6,
             color: "#8FA3BF",
-            display: "-webkit-box",
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: "vertical",
-            overflow: "hidden",
+            flex: 1,
+            minHeight: 0,
+            overflowY: "auto",
+            paddingRight: 6,
           }}
         >
           {p.desc}
