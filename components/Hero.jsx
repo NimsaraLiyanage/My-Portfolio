@@ -64,6 +64,7 @@ export default function Hero() {
 
       {/* skills marquee */}
       <motion.div
+        className="hero-marquee"
         initial={{ opacity: 0, y: -12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: EASE }}

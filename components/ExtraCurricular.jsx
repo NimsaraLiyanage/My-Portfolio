@@ -79,6 +79,7 @@ function AchievementCard({ a }) {
     >
       {/* Thumbnail — image if available, else gradient + emoji fallback */}
       <div
+        className="extra-thumb"
         style={{
           position: "relative",
           height: 260,

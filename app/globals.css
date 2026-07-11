@@ -97,15 +97,55 @@ a {
     padding-left: 24px !important;
     padding-right: 24px !important;
   }
+  /* tighten the tall top paddings so the kinetic heading + content fit */
+  #about {
+    padding-top: 120px !important;
+  }
+  #contact {
+    padding-top: 120px !important;
+  }
   .work-wrap {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+  .contrib-wrap {
     padding-left: 24px !important;
     padding-right: 24px !important;
   }
 }
 
+/* Nav — hide the standalone resume pill on phones (About has its own download)
+   and tighten spacing so the logo + links never overflow. */
+@media (max-width: 640px) {
+  .nav-inner {
+    padding: 14px 20px !important;
+    gap: 14px !important;
+  }
+  .nav-links {
+    gap: 18px !important;
+  }
+  .resume-btn {
+    display: none !important;
+  }
+  .nav-link {
+    font-size: 10px !important;
+    letter-spacing: 0.12em !important;
+  }
+}
+
 @media (max-width: 560px) {
   .work-card {
-    width: 82vw !important;
+    width: 74vw !important;
+    max-width: 300px !important;
+    height: 430px !important;
+  }
+  .extra-thumb {
+    height: 200px !important;
+  }
+  .site-footer {
+    padding: 24px !important;
+    justify-content: center !important;
+    text-align: center !important;
   }
 }
 
@@ -140,8 +180,35 @@ a {
   .hero-tagline {
     display: none !important;
   }
+  .hero-marquee {
+    top: 66px !important;
+  }
+  .hero-name {
+    top: 112px !important;
+  }
   .hero-role {
     text-align: left !important;
+  }
+  /* stack ENGINEER above the social links so they no longer overlap */
+  .hero-role {
+    bottom: 210px !important;
+  }
+  .hero-social {
+    bottom: 132px !important;
+  }
+  .hero-para {
+    bottom: 32px !important;
+    padding: 0 24px !important;
+    font-size: 12px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-role {
+    bottom: 196px !important;
+  }
+  .hero-social {
+    bottom: 128px !important;
   }
 }
 

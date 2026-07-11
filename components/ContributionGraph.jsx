@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const GITHUB_USER = "NimsaraLiyanage";
@@ -22,6 +22,14 @@ const MONTHS = [
 export default function ContributionGraph() {
   const [days, setDays] = useState(null);
   const [total, setTotal] = useState(null);
+  const scrollRef = useRef(null);
+
+  // On narrow screens the year overflows horizontally — start it scrolled to
+  // the right so the most recent weeks (not last January) are what shows first.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el) el.scrollLeft = el.scrollWidth;
+  }, [days]);
 
   useEffect(() => {
     fetch(
@@ -73,8 +81,9 @@ export default function ContributionGraph() {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+      className="contrib-wrap"
       style={{
         maxWidth: 1200,
         margin: "0 auto",
@@ -97,7 +106,7 @@ export default function ContributionGraph() {
         CONTRIBUTIONS IN THE LAST YEAR
       </div>
 
-      <div style={{ overflowX: "auto", paddingBottom: 6 }}>
+      <div ref={scrollRef} style={{ overflowX: "auto", paddingBottom: 6 }}>
         <div style={{ width: "max-content", margin: "0 auto" }}>
           {/* month labels */}
           <div

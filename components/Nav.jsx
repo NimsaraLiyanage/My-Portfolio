@@ -31,6 +31,7 @@ export default function Nav() {
       }}
     >
       <div
+        className="nav-inner"
         style={{
           maxWidth: 1440,
           margin: "0 auto",
@@ -55,6 +56,7 @@ export default function Nav() {
           NL<span style={{ color: "var(--ac, #22D3EE)" }}>·</span>
         </a>
         <div
+          className="nav-links"
           style={{
             display: "flex",
             alignItems: "center",

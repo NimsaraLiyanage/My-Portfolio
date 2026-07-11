@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const EASE = [0.16, 1, 0.3, 1];
@@ -15,7 +15,7 @@ export function Reveal({ children, delay = 0, as = "div", style, ...rest }) {
     <MotionTag
       initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.15, margin: "0px 0px -12% 0px" }}
       transition={{ duration: 0.9, ease: EASE, delay }}
       style={style}
       {...rest}
@@ -35,9 +35,14 @@ export function KineticHeading({ text, speed = 0.15, style }) {
     target: ref,
     offset: ["start end", "end start"],
   });
-  // range scaled off the viewport so the drift feels like the original px math
-  const range =
-    typeof window !== "undefined" ? window.innerHeight * speed * 1.6 : 240;
+  // range scaled off the viewport so the drift feels like the original px math.
+  // NOTE: start at the SSR-safe default (240) so the server and first client
+  // render agree, then measure the real viewport after mount. Reading `window`
+  // during render caused a hydration mismatch warning in the console.
+  const [range, setRange] = useState(240);
+  useEffect(() => {
+    setRange(window.innerHeight * speed * 1.6);
+  }, [speed]);
   const x = useTransform(scrollYProgress, [0, 1], [range, -range]);
 
   return (
