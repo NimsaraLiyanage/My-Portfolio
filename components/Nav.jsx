@@ -44,6 +44,7 @@ export default function Nav() {
       >
         <a
           href="#hero"
+          className="nav-logo"
           style={{
             fontFamily: "var(--font-mono)",
             fontSize: 16,

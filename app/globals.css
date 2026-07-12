@@ -72,6 +72,18 @@ a {
   font-family: var(--font-mono);
 }
 
+/* Project card titles: full title on desktop, short title swaps in on phones
+   (see the max-width: 560px block below). */
+.card-title-short {
+  display: none;
+}
+
+/* Project card category: shorter label swaps in on very small phones
+   (see the max-width: 380px block below). */
+.card-cat-short {
+  display: none;
+}
+
 /* Responsive collapse of the two-column grids + horizontal work section */
 @media (max-width: 900px) {
   .two-col {
@@ -142,10 +154,52 @@ a {
   .extra-thumb {
     height: 200px !important;
   }
+  /* project cards show a short one-line title on phones so the tags + Code
+     link stay visible inside the card */
+  .card-title-full {
+    display: none;
+  }
+  .card-title-short {
+    display: inline;
+  }
   .site-footer {
     padding: 24px !important;
     justify-content: center !important;
     text-align: center !important;
+  }
+}
+
+/* Very small phones (iPhone SE etc.) — swap the long project category label
+   for a shorter one so it doesn't wrap to four lines. */
+@media (max-width: 380px) {
+  .card-cat-full {
+    display: none;
+  }
+  .card-cat-short {
+    display: inline;
+  }
+  /* tighten the leadership card padding on very small phones */
+  .leadership-card {
+    padding: 24px 20px !important;
+  }
+}
+
+/* Very small phones (iPhone SE / mini) — shrink the nav so all five links
+   fit without CONTACT getting clipped. */
+@media (max-width: 400px) {
+  .nav-inner {
+    padding: 12px 14px !important;
+    gap: 8px !important;
+  }
+  .nav-links {
+    gap: 11px !important;
+  }
+  .nav-link {
+    font-size: 9.5px !important;
+    letter-spacing: 0.03em !important;
+  }
+  .nav-logo {
+    font-size: 14px !important;
   }
 }
 

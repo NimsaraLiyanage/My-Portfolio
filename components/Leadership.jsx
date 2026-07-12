@@ -22,6 +22,7 @@ function LeadershipCard({ group }) {
       variants={card}
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300, damping: 22 }}
+      className="leadership-card"
       style={{
         position: "relative",
         borderRadius: 20,
@@ -176,7 +177,8 @@ export default function Leadership() {
           viewport={{ once: false, amount: 0.15 }}
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+            gridTemplateColumns:
+              "repeat(auto-fit, minmax(min(100%, 320px), 1fr))",
             gap: 24,
           }}
         >

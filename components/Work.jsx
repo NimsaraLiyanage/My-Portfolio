@@ -157,7 +157,10 @@ function ProjectCard({ p }) {
           }}
         >
           <span style={{ color: "var(--ac, #22D3EE)" }}>{p.num}</span>
-          <span style={{ color: "#8FA3BF" }}>{p.cat}</span>
+          <span style={{ color: "#8FA3BF" }}>
+            <span className="card-cat-full">{p.cat}</span>
+            <span className="card-cat-short">{p.catShort || p.cat}</span>
+          </span>
         </div>
         <h3
           style={{
@@ -169,7 +172,8 @@ function ProjectCard({ p }) {
             color: "#fff",
           }}
         >
-          {p.title}
+          <span className="card-title-full">{p.title}</span>
+          <span className="card-title-short">{p.short || p.title}</span>
         </h3>
         <p
           className="desc-scroll"
