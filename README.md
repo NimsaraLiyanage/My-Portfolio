@@ -1,7 +1,13 @@
 # Nimsara Liyanage — Portfolio
 
+🌐 **Live at [www.nimsaradev.com](https://www.nimsaradev.com)**
+
 A dark, cinematic single-page portfolio built with **Next.js (App Router)** and
 **Framer Motion**, ported from the Claude Design source.
+
+[![Fully responsive — one experience across desktop, tablet & mobile](public/images/responsive-showcase.jpg)](https://www.nimsaradev.com)
+
+*Real screenshots of the live site rendered at desktop (1920px), tablet (768px) and mobile (390px) viewports.*
 
 ## Features
 
