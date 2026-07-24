@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { EXTRACURRICULAR } from "@/lib/data";
 import { Reveal, KineticHeading } from "./shared";
 
@@ -93,20 +94,15 @@ function AchievementCard({ a }) {
         }}
       >
         {imgOk ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={a.img}
             alt={a.title}
+            fill
+            loading="lazy"
             draggable={false}
             onError={() => setImgOk(false)}
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: a.fit || "cover",
-              objectPosition: "center 25%",
-            }}
+            sizes="(max-width: 900px) 280px, 400px"
+            style={{ objectFit: a.fit || "cover", objectPosition: "center 25%" }}
           />
         ) : (
           <span style={{ fontSize: 64, lineHeight: 1, filter: "drop-shadow(0 4px 16px rgba(0,0,0,.4))" }}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { CONTACT, EXPERTISE } from "@/lib/data";
 
@@ -188,14 +189,14 @@ export default function Hero() {
           transition={{ duration: 1.1, ease: EASE, delay: 0.25 }}
           style={{ x: photoX, y: photoY, width: "100%", height: "100%", position: "relative" }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={PHOTO}
             alt="Nimsara Liyanage"
+            fill
+            priority
             draggable={false}
+            sizes="(max-width: 760px) 84vw, 760px"
             style={{
-              width: "100%",
-              height: "100%",
               objectFit: "cover",
               objectPosition: "top center",
               maskImage:

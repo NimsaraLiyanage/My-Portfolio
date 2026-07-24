@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { WORK_EXPERIENCE, EDUCATION } from "@/lib/data";
 import { Reveal, TiltGroup } from "./shared";
 
@@ -71,14 +72,14 @@ function TimelineList({ items }) {
             }}
           >
             {t.logo && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={t.logo}
                 alt={t.title}
+                width={46}
+                height={46}
+                loading="lazy"
                 draggable={false}
                 style={{
-                  width: 46,
-                  height: 46,
                   flex: "none",
                   borderRadius: 12,
                   objectFit: "cover",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import Image from "next/image";
 import { PROJECTS } from "@/lib/data";
 import { Reveal, KineticHeading } from "./shared";
 
@@ -118,19 +119,15 @@ function ProjectCard({ p }) {
         }}
       >
         {imgOk && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={p.img}
             alt={p.title}
+            fill
+            loading="lazy"
             draggable={false}
             onError={() => setImgOk(false)}
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
+            sizes="(max-width: 900px) 280px, 400px"
+            style={{ objectFit: "cover" }}
           />
         )}
       </div>
